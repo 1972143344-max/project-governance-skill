@@ -24,6 +24,7 @@ Recommended first step:
 
 - confirm the active project scope and stable slug
 - ask whether to initialize a project-root `AGENTS.md`
+- if `AGENTS.md` already exists, do not overwrite it; review it first and propose merge options
 - create `docs/<project-scope>/governance/00_index_and_priority.md`
 
 Then create the other requested docs.

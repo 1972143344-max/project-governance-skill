@@ -45,6 +45,7 @@ The skill can initialize both:
 - governance docs under `docs/<project-scope>/governance/`
 
 This is the recommended choice for new projects that want the full workflow.
+If a project-root `AGENTS.md` already exists, the skill should not overwrite it silently. It should read the current file first and propose keep, merge, or explicit replace options.
 
 ## Step 3. Initialize Governance Docs
 

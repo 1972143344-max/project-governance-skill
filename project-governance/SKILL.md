@@ -24,6 +24,7 @@ Use a stable scope slug for `<project-scope>`, preferably lowercase letters, dig
 - Do not silently create governance docs. Ask first.
 - Do not silently update governance docs after implementation. Ask first.
 - Do not silently downgrade, merge, archive, or reinterpret old documents. Ask first.
+- Never overwrite an existing `AGENTS.md` without explicit user approval. If one already exists, read it first and propose a merge plan instead of replacing it.
 - If a conflict changes project direction, propose a plan and, when useful, a decision log entry before implementation.
 - Prefer stable governance under `docs/<project-scope>/governance/` and keep `AGENTS.md` limited to durable collaboration rules.
 - After major changes, require a review pass before considering the work complete.
@@ -60,9 +61,10 @@ If governance docs do not exist:
 3. Default the doc root to `docs/<project-scope>/governance/`.
 4. Use `docs/governance/` only if the user explicitly wants repository-wide governance.
 5. Ask whether to initialize a project-root `AGENTS.md` from the template if one does not already exist.
-6. Create `00_index_and_priority.md` first.
-7. Then create the remaining requested docs from templates.
-8. Do not populate project-specific conclusions unless the user asks for adoption or migration.
+6. If a project-root `AGENTS.md` already exists, do not overwrite it. Read it first and ask whether to keep it, merge governance rules into it, or replace it explicitly.
+7. Create `00_index_and_priority.md` first.
+8. Then create the remaining requested docs from templates.
+9. Do not populate project-specific conclusions unless the user asks for adoption or migration.
 
 ### 2. Adoption
 

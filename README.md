@@ -77,6 +77,7 @@ project-governance/
 - Repository-wide only by exception: use `docs/governance/` only when one governance layer is intentionally shared across multiple projects or experiments.
 - Stable slugs: use a stable `<project-scope>` slug, preferably lowercase letters, digits, and hyphens.
 - Ask first: the skill is intentionally conservative. It should not silently create or silently update governance docs.
+- No silent `AGENTS.md` replacement: if a project-root `AGENTS.md` already exists, the skill should review it and propose merge options instead of overwriting it.
 - Plan before implementation: if a meaningful conflict or design change appears, discuss and confirm direction first.
 - Review after major changes: substantial changes should receive a review pass before the task is considered complete.
 - Disclose uncertainty: if implementation proceeds under non-trivial uncertainty, that uncertainty must be surfaced to the user explicitly.
