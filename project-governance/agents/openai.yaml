@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Governance"
+  short_description: "Initialize and maintain project-scoped governance docs: index, spec, design, audit, lessons, decisions, and optional active plans."
+  default_prompt: "Use $project-governance to initialize or update project-scoped governance docs before non-trivial changes."
