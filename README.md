@@ -78,7 +78,7 @@ project-governance/
 - Stable slugs: use a stable `<project-scope>` slug, preferably lowercase letters, digits, and hyphens.
 - Ask first: the skill is intentionally conservative. It should not silently create or silently update governance docs.
 - No silent `AGENTS.md` replacement: if a project-root `AGENTS.md` already exists, the skill should review it and propose merge options instead of overwriting it.
-- Ask instead of inferring: if governance initialization, adoption, classification, or document authority is unclear, the skill should ask the user explicitly.
+- Ask instead of inferring: if governance initialization, adoption, classification, document authority, or material document content is unclear, the skill should ask the user explicitly.
 - Plan before implementation: if a meaningful conflict or design change appears, discuss and confirm direction first.
 - Review after major changes: substantial changes should receive a review pass before the task is considered complete.
 - Disclose uncertainty: if implementation proceeds under non-trivial uncertainty, that uncertainty must be surfaced to the user explicitly.
