@@ -25,6 +25,7 @@ Use a stable scope slug for `<project-scope>`, preferably lowercase letters, dig
 - Do not silently update governance docs after implementation. Ask first.
 - Do not silently downgrade, merge, archive, or reinterpret old documents. Ask first.
 - Never overwrite an existing `AGENTS.md` without explicit user approval. If one already exists, read it first and propose a merge plan instead of replacing it.
+- When governance initialization, adoption, classification, or document authority is unclear, ask the user explicitly instead of inferring.
 - If a conflict changes project direction, propose a plan and, when useful, a decision log entry before implementation.
 - Prefer stable governance under `docs/<project-scope>/governance/` and keep `AGENTS.md` limited to durable collaboration rules.
 - After major changes, require a review pass before considering the work complete.
