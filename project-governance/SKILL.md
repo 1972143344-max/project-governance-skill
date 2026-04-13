@@ -250,6 +250,14 @@ Progressive disclosure only works if the summaries stay aligned.
 - Do not present a stale summary as authoritative.
 - If summary freshness is unclear and the task is important, read the authoritative section directly.
 
+### After Compression Events
+
+If context is compressed, summarized, or otherwise reduced during task execution, do not continue blindly from the compressed state.
+
+- Re-check the active task, current plan, and the authoritative project context before continuing.
+- Verify that no constraints, subtasks, decisions, pending actions, or user instructions were dropped or distorted by the compression.
+- If any uncertainty remains after re-alignment, surface it explicitly to the user instead of silently assuming the compressed context is complete.
+
 ### Flexible Use Of Lossy Context Reduction
 
 Lossy context reduction is allowed when the task does not require full fidelity and the user accepts a lighter context strategy.

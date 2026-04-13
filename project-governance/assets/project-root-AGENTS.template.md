@@ -128,6 +128,12 @@ Before starting a complex task:
 - check whether an index/priority doc exists
 - identify conflicts before proposing or making changes
 
+After any context compression, summarization, or other context reduction event during task execution:
+
+- re-check the active task, current plan, and authoritative context before proceeding
+- verify that no constraints, subtasks, decisions, or pending actions were dropped, distorted, or made stale by the compression
+- if any uncertainty or possible omission remains, surface it explicitly to the user and continue from the re-aligned context
+
 If no priority/index doc exists for a large project, recommend creating one before trusting scattered historical files.
 
 ## Skill Usage
