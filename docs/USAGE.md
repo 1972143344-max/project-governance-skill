@@ -21,6 +21,12 @@ The skill defaults to project-scoped governance:
 
 Do not default to `docs/governance/` unless the task is explicitly repository-wide.
 
+If a repository contains multiple long-running projects or experiments, the skill may also propose:
+
+- `docs/governance/00_project_scope_registry.md`
+
+That registry is routing-only. It should help identify the active project scope before reading project-specific governance docs. It must not override project spec, design, or decisions.
+
 ## Step 1. Pick A Project Scope Slug
 
 Choose a stable slug before initializing governance docs.
@@ -86,6 +92,36 @@ The normal order is:
 - name the assumptions or unclear points
 - explain the impact on the result or next decision
 
+## Step 5. Use Progressive Disclosure For Large Document Sets
+
+If the project has many documents or very large files, do not default to reading everything in full.
+
+Prefer this sequence:
+
+1. read the scope/index or routing doc first
+2. read file-level summary headers next
+3. read only the sections needed for the current task
+4. expand to full documents only when the summary is insufficient
+
+Useful companion templates:
+
+- `assets/file-summary-header.template.md`
+- `assets/summary-index.template.md`
+
+Recommended uses:
+
+- add a short summary header near the top of large files
+- create a summary index when many files are plausible reading candidates
+- split files by semantic boundary when they grow too large
+- keep current spec and active decisions authoritative in the real document, not only in the summary
+
+Avoid using summary-only reading for:
+
+- current constraints/spec
+- active decisions
+- active design rules
+- active plans
+
 ## Adoption For Existing Projects
 
 If a project already contains many docs:
@@ -113,3 +149,7 @@ If a project already contains many docs:
 - updating governance docs without user approval
 - skipping review after major changes
 - hiding uncertainty in a confident-sounding final reply
+- turning a repository-level routing registry into a project spec
+- letting summary headers drift away from the actual document contents
+- splitting files by size alone when a cleaner semantic split is available
+- treating summary-only reading as a safe replacement for current authoritative rules

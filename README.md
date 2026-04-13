@@ -1,5 +1,7 @@
 # Project Governance Skill
 
+[中文说明](README.zh-CN.md)
+
 A reusable Codex skill for setting up and maintaining project-scoped governance documents for large or long-running work.
 
 This skill helps prevent:
@@ -29,7 +31,16 @@ It guides the agent to create and maintain:
 - `05_decision_log.md`
 - optional `06_active_plan.md`
 
+For repositories that contain multiple long-running projects or experiments, it can also propose a routing-only registry:
+
+- optional `docs/governance/00_project_scope_registry.md`
+
 It also includes a reusable project-root `AGENTS.md` template so a new repository can adopt the same collaboration rules without copying rules by hand from an older project.
+
+For large projects, it also supports progressive-disclosure style context management through reusable summary templates:
+
+- file summary headers
+- summary indexes
 
 ## Why This Exists
 
@@ -60,13 +71,16 @@ project-governance/
   agents/openai.yaml
   assets/
     00_index_and_priority.template.md
+    00_project_scope_registry.template.md
     01_constraints_and_spec.template.md
     02_design.template.md
     03_behavior_audit.template.md
     04_lessons_learned.template.md
     05_decision_log.template.md
     06_active_plan.template.md
+    file-summary-header.template.md
     project-root-AGENTS.template.md
+    summary-index.template.md
   references/
     governance-workflow.md
 ```
@@ -75,6 +89,8 @@ project-governance/
 
 - Project-scoped by default: governance docs should normally live under `docs/<project-scope>/governance/`.
 - Repository-wide only by exception: use `docs/governance/` only when one governance layer is intentionally shared across multiple projects or experiments.
+- Repository-level routing is optional: if many projects coexist in one repository, use a routing-only registry to identify the active project scope before opening project-specific governance docs.
+- Routing does not override project governance: repository-level routing docs must never replace project-scoped spec, design, or decision authority.
 - Stable slugs: use a stable `<project-scope>` slug, preferably lowercase letters, digits, and hyphens.
 - Ask first: the skill is intentionally conservative. It should not silently create or silently update governance docs.
 - No silent `AGENTS.md` replacement: if a project-root `AGENTS.md` already exists, the skill should review it and propose merge options instead of overwriting it.
@@ -82,6 +98,7 @@ project-governance/
 - Plan before implementation: if a meaningful conflict or design change appears, discuss and confirm direction first.
 - Review after major changes: substantial changes should receive a review pass before the task is considered complete.
 - Disclose uncertainty: if implementation proceeds under non-trivial uncertainty, that uncertainty must be surfaced to the user explicitly.
+- Progressive disclosure over full-file loading by default: for large projects, the skill should prefer routing, summaries, and targeted section reads before loading long files wholesale.
 
 ## What Problems It Solves
 
@@ -104,6 +121,10 @@ The decision log stores alternatives, rationale, risks, and superseded choices i
 ### 5. Repeated mistakes
 
 The lessons-learned document turns resolved issues into reusable operating knowledge for future work.
+
+### 6. Large context waste
+
+Long-running projects accumulate too much text to read in full on every task. The skill now supports progressive disclosure so an agent can route first, then expand only into the files and sections that are actually needed.
 
 ## Installation
 
@@ -147,6 +168,11 @@ Typical prompts:
    - keep the audit log append-only
    - review major changes
    - disclose uncertainty in the closing reply
+7. For large document sets:
+   - route with the scope registry or project index first
+   - prefer file summary headers and summary indexes before reading full documents
+   - split large files by responsibility instead of arbitrary size
+   - keep authoritative rules in the real source documents
 
 ## Included Templates
 
@@ -165,23 +191,28 @@ Typical prompts:
   - alternatives, choices, rationale, risks, superseded decisions
 - `06_active_plan.template.md`
   - optional persisted plan when the user wants one
+- `00_project_scope_registry.template.md`
+  - optional repository-level routing registry for multi-project repositories
 - `project-root-AGENTS.template.md`
   - reusable project-local collaboration rules for repositories that want this governance model
+- `file-summary-header.template.md`
+  - reusable file-level summary header for progressive disclosure
+- `summary-index.template.md`
+  - lightweight routing index across many related files
 
-## Safety And Privacy
+## Documentation Strategy
 
-This repository is intended to be safe to publish publicly.
+This skill is designed for repositories where documentation can grow faster than the agent can read it comfortably in one pass.
 
-The included skill and templates should not contain:
+The intended pattern is:
 
-- local machine paths
-- personal usernames
-- emails
-- API keys
-- tokens
-- project-private secrets
+- keep authority in project-scoped governance docs
+- use routing docs and indexes to choose what to read next
+- add short summary headers to large files
+- split files by responsibility when they become too large
+- prefer targeted reads over loading every related file
 
-Before publishing, still review the repo contents in case local modifications introduced sensitive content.
+That keeps context small without turning summaries into fake sources of truth.
 
 ## License
 
