@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Governance"
-  short_description: "Initialize and maintain project-scoped governance docs: index, spec, design, audit, lessons, decisions, and optional active plans."
-  default_prompt: "Use $project-governance to initialize or update project-scoped governance docs before non-trivial changes."
+  short_description: "Initialize, re-enter, and maintain project-scoped governance: authority docs, recovery/context routing, probe-heavy boundaries, lane selection, and structural upkeep."
+  default_prompt: "Use $project-governance to initialize, re-enter, or maintain project-scoped governance before non-trivial changes, especially when authority routing, recovery/context state, probe-heavy evidence, or structural document maintenance may matter."

@@ -5,144 +5,178 @@ This file defines project-local collaboration and governance rules for this repo
 ## Scope
 
 - These rules apply to this repository only.
-- This file defines stable workflow rules, not rapidly changing project details.
-- Project-specific specs, design details, audit trails, decisions, and lessons should live under `docs/<project-scope>/governance/`.
+- Stable workflow rules live here. Project truth lives in project-scoped governance docs under `docs/<project-scope>/governance/`.
+- Recovery state lives under `docs/<project-scope>/context/`.
+- Task records and delivery history live under `docs/<project-scope>/tasks/`.
 
-## Governance Documents
+## Governance Layers
 
-Each major or long-running project in this repository should maintain governance documents under `docs/<project-scope>/governance/`.
+- `authority`: current project truth and accepted decisions
+- `execution`: current frontier, completed rounds, and searchable task history
+- `learning`: durable lessons that should influence future agent behavior
+- `recovery`: resumable working state after compression, pause, or handoff
+- `probe`: evidence-only work that must stay bounded and reviewable
 
-Default project-scoped governance document set:
+## Default Governance Skeleton
+
+Required for ordinary project-scoped governance:
 
 - `docs/<project-scope>/governance/00_index_and_priority.md`
 - `docs/<project-scope>/governance/01_constraints_and_spec.md`
 - `docs/<project-scope>/governance/02_design.md`
 - `docs/<project-scope>/governance/03_behavior_audit.md`
-- `docs/<project-scope>/governance/04_lessons_learned.md`
 - `docs/<project-scope>/governance/05_decision_log.md`
-- Optional: `docs/<project-scope>/governance/06_active_plan.md`
+- `docs/<project-scope>/tasks/00_task_knowledge_base.md`
 
-Use `docs/governance/` only for repository-wide governance that is intentionally shared across multiple projects or experiments.
+Optional by mode or user direction:
 
-## Project Scope Naming
+- `docs/<project-scope>/governance/04_lessons_learned.md`
+- `docs/<project-scope>/governance/06_active_plan.md`
+- `docs/<project-scope>/governance/07_governance_behavior_matrix.md`
+- `docs/<project-scope>/governance/08_probe_harness_contract.md`
+- `docs/<project-scope>/governance/09_governance_system_spec.md`
+- `docs/<project-scope>/governance/lessons/`
+- `docs/<project-scope>/tasks/templates/00_task_template_index.md`
+- `docs/<project-scope>/tasks/artifacts/`
 
-When governance docs are project-scoped, use a stable project scope slug in the path.
+Required recovery skeleton:
 
-- Preferred format: lowercase letters, digits, and hyphens only.
-- Good examples:
-  - `experiment3`
-  - `exp3-bua87-formal`
-  - `browser-runtime-migration`
-- Avoid unstable natural-language titles as directory names when a stable slug is available.
-- If the correct project scope slug is unclear, ask the user before creating governance docs.
+- `docs/<project-scope>/context/00_context_index.md`
+- `docs/<project-scope>/context/01_context_usage_and_policy.md`
+- `docs/<project-scope>/context/shards/`
 
-Document roles:
+## Reading Order
 
-- `00_index_and_priority.md`: authoritative, working, historical document lists and conflict resolution order.
-- `01_constraints_and_spec.md`: current requirements, hard constraints, active rules, and unified spec.
-- `02_design.md`: framework, implementation details, design rationale, and design-change records.
-- `03_behavior_audit.md`: append-only log of meaningful actions, edits, environment operations, and outcomes.
-- `04_lessons_learned.md`: problems, root causes, solutions, reusable lessons, and follow-up cautions.
-- `05_decision_log.md`: decisions, alternatives, rationale, risks, and effective timestamps.
-- `06_active_plan.md`: currently approved execution plan when a plan needs to be persisted.
+Before non-trivial work:
 
-## Discussion Before Implementation
+1. Determine the active project scope.
+2. Read `docs/<project-scope>/governance/00_index_and_priority.md`.
+3. Read the current authoritative spec.
+4. If `docs/<project-scope>/governance/07_governance_behavior_matrix.md` is active and the round is non-trivial, read it before final lane classification.
+5. If the round uses `probe-only`, touches `tasks/artifacts/`, or the project is running in `probe-heavy` mode, read `docs/<project-scope>/governance/08_probe_harness_contract.md`.
+6. If task-template tiering is active and a new task record is needed, read `docs/<project-scope>/tasks/templates/00_task_template_index.md`.
+7. Read relevant decisions or active plan only if the task may change direction or frontier.
+8. Read task routing and recovery routing only after the relevant authority surface is known.
+9. Expand into only the minimum detailed task records or context shards needed.
 
-Do not directly implement non-trivial changes when any of the following is true:
+## Enabled Optional Surface Routing
 
-- a spec conflict is found
-- old documents conflict with current implementation
-- design scope, constraints, or project rules would change
-- governance documents need to be created, merged, downgraded, or updated
-- runtime, evaluation, environment, data-flow, or workflow behavior would change
-- a historical decision would be overridden
+- Read `docs/<project-scope>/governance/04_lessons_learned.md` when the learning layer is enabled and you need to check or promote a reusable lesson.
+- Read `docs/<project-scope>/governance/07_governance_behavior_matrix.md` when it is active and the round needs explicit lane-control rules.
+- Read `docs/<project-scope>/governance/08_probe_harness_contract.md` whenever the round uses `probe-only`, creates or relies on `tasks/artifacts/`, or the project is running in `probe-heavy` mode.
+- Read `docs/<project-scope>/governance/09_governance_system_spec.md` only for governance-maintenance or governance-redesign work, and only after the authoritative core set is already known.
+- Read `docs/<project-scope>/tasks/templates/00_task_template_index.md` when task-template tiering is active and more than one task-record template could fit the round.
 
-In these cases:
+## Progressive Disclosure
 
-- first explain the conflict or pending change clearly
-- then ask the user whether to create or update a plan and/or governance documents
-- only implement after the user confirms the direction
+Use progressive disclosure by default when document relevance is uncertain.
 
-## Documentation Update Policy
+- route first and expand only as needed
+- prefer indexes, routing docs, file paths, filenames, and authority markers before full-document reading
+- if summary headers or summary indexes exist, read them first
+- if summaries do not exist, fall back to lightweight triage through title or heading skim, targeted search, and partial section reads before reading the whole file
+- once an authoritative current rule, active plan, or active decision is identified as relevant, do not rely on summary-only reading for that item
 
-Do not silently create or update governance documents.
+## Lane Classification
 
-After meaningful code, config, workflow, requirement, or design changes:
+Classify the round before editing anything.
 
-- explicitly ask whether to update `spec`, `design`, `audit`, `lessons learned`, and `decision log`
-- if the user requires auditability, keep `03_behavior_audit.md` updated for each meaningful action
-- if a change overrides an older conclusion, record that override explicitly in the relevant governance document
+Supported governance lanes:
 
-If governance documents do not exist yet and the task is large, long-running, or conflict-prone:
+- `docs-only`
+- `metadata-sync`
+- `review-only`
+- `probe-only`
+- `implementation`
+- `substantial-change`
+- `authority-change`
+- `lesson-promotion`
+- `index-split`
+- `archive-or-supersede`
 
-- explicitly ask the user whether to initialize the governance document set before proceeding
-- explicitly confirm the active project scope slug before creating project-scoped governance docs
-- do not silently create the governance document set
+Use the narrowest lane that truthfully matches the intended output. Upgrade to a stricter lane if the round changes accepted truth, architecture, routing structure, or execution boundary.
 
-## Priority And Conflict Resolution
+If `docs/<project-scope>/governance/07_governance_behavior_matrix.md` is active, treat it as the authoritative lane-control surface for:
 
-- If `docs/<project-scope>/governance/00_index_and_priority.md` exists for the active project, use its priority order instead of guessing from timestamps alone.
-- If the task is explicitly repository-wide and `docs/governance/00_index_and_priority.md` exists, use that repository-level priority order.
-- If governance docs are missing and the task is large, long-running, or conflict-prone, recommend initializing the governance doc set before relying on scattered files.
-- Do not treat old files as authoritative just because they are detailed.
+- required read baseline
+- allowed write surfaces
+- required sync obligations
+- prohibited actions
+- review and authority-update requirements
 
-## Auditability
+## Task Record Policy
 
-For meaningful implementation, environment, or documentation actions, record:
+Every meaningful completed round should produce or update a task record. Use the narrowest template that fits the round:
 
-- background
-- purpose
-- change content
-- scope
-- result
-- timestamp
-- lessons if applicable
+- `T0`: minor or metadata-only
+- `T1`: probe-only, review-only, or docs-only
+- `T2`: standard implementation
+- `T3`: substantial or authority-changing work
 
-Prefer append-only audit logs for traceability.
+Do not fill fields that do not apply just to satisfy a large generic template.
 
-## Review After Major Changes
+When task-template tiering is active, use `docs/<project-scope>/tasks/templates/00_task_template_index.md` as the selector surface for `T0` to `T3` rather than relying on this summary alone.
 
-After major code changes or other major project changes:
+Default edge-case routing:
 
-- perform a review pass before considering the work complete
-- focus the review on correctness, regressions, missing updates, and unresolved conflicts
-- if subagents or reviewer agents are available, use a review-focused agent for an independent review pass when appropriate
-- if no reviewer agent is available, perform the review manually and report any residual risks
+- `lesson-promotion`: use `T1` when the lesson is guidance-only; upgrade to `T3` if the promotion changes mandatory policy or accepted truth.
+- `index-split`: use `T1` for routing-only reorganization; upgrade to `T3` if the split also changes authority status or active truth.
+- `archive-or-supersede`: use `T1` when retiring or replacing routing, recovery, working, or historical surfaces without truth change; upgrade to `T3` if the active authoritative source changes.
 
-## Uncertainty Disclosure
+## Governance Sync Rules
 
-If implementation proceeds despite non-trivial uncertainty:
+- If specs or design decisions change, update the matching governance docs in the same workstream.
+- If context shards are superseded or archived, update the context index in the same round.
+- Prefer append-only audit updates for meaningful implementation and environment actions.
 
-- do not hide the uncertainty in the final reply
-- explicitly tell the user which assumptions, unclear points, or partially verified areas remain
-- explain how those uncertainties may affect the result or the next decision
-- surface this even if the implementation was completed successfully
+## Authority Boundary
 
-## Context Hygiene
+- Governance docs under `docs/<project-scope>/governance/` are authoritative.
+- If active, `docs/<project-scope>/governance/07_governance_behavior_matrix.md` controls lane discipline.
+- If active, `docs/<project-scope>/governance/08_probe_harness_contract.md` is mandatory for `probe-only` rounds and for rounds that create or rely on `tasks/artifacts/`.
+- Recovery docs under `docs/<project-scope>/context/` are working/reference only.
+- `docs/<project-scope>/governance/04_lessons_learned.md` remains the learning-layer entrypoint even when `governance/lessons/` contains leaf lesson files.
+- `docs/<project-scope>/tasks/artifacts/` stores evidence outputs only and does not become an authority surface by itself.
+- Summary headers and summary indexes are routing-only.
+- If governance and context disagree, governance wins.
 
-Before starting a complex task:
+## Update Policy
 
-- determine the active project scope first
-- read `docs/<project-scope>/governance/00_index_and_priority.md` first if it exists
-- then read the current authoritative spec
-- check whether an index/priority doc exists
-- identify conflicts before proposing or making changes
+Do not silently change future reading behavior in meaningful ways.
 
-After any context compression, summarization, or other context reduction event during task execution:
+Tell the user explicitly before or while performing:
+
+- archive or supersede actions
+- index splits or routing reorganizations
+- lesson promotions that change future workflow
+- authority changes
+
+Only clearly mechanical small updates may be done without separate notice.
+
+## Delivery Quality Gate
+
+Before claiming delivery complete:
+
+- locate and run the repo-local quality gate required for the touched surface
+- prefer an explicit quality-gate source already present in the repository, such as governance docs, `AGENTS.md`, an existing workflow/task contract, CI configuration, or other executable build/test entrypoints
+- if the quality gate is inferred from repository execution surfaces rather than explicitly documented, say so clearly instead of presenting it as a formal repository rule
+
+## Review Standard
+
+- Review for correctness, regressions, security boundaries, missing tests, and doc drift.
+- Surface residual risk explicitly in the closing handoff.
+
+## Compression Recovery
+
+After any context compression, summarization, or handoff:
 
 - re-check the active task, current plan, and authoritative context before proceeding
-- verify that no constraints, subtasks, decisions, or pending actions were dropped, distorted, or made stale by the compression
-- if any uncertainty or possible omission remains, surface it explicitly to the user and continue from the re-aligned context
+- verify that no constraints, subtasks, decisions, or pending actions were dropped or made stale
+- if recent execution state matters, consult the project-scoped recovery layer before trusting compressed chat memory alone
+- if uncertainty remains, surface it explicitly to the user
 
-If no priority/index doc exists for a large project, recommend creating one before trusting scattered historical files.
+## Skill Re-entry
 
-## Skill Usage
+Use the `project-governance` skill when the task involves governance initialization, authority boundaries, task-template selection, lessons promotion, routing/index maintenance, probe-only governance, or context-layer maintenance.
 
-If a project-governance skill exists in this environment, use it when the user asks to:
-
-- initialize governance docs
-- reconcile conflicting project docs
-- create or update spec/design/audit/lessons/decision docs
-- establish a plan-first workflow for a large project
-
-If such a skill is not yet installed, follow the same workflow manually and say so briefly.
+Do not rely on memory of the skill alone when current written instructions may have drifted.
