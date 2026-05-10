@@ -85,6 +85,14 @@ project-governance-skill/
 
 这样可以减少重复真相源，也避免每轮都为低频治理细节付 token。
 
+更具体地说，`AGENTS.md` 应该被当作“带索引的控制面”：
+
+- 短小、持久的规则保留在 `AGENTS.md`
+- 详细运行时流程放到 skill 或 support protocol 里
+- 当 `AGENTS.md` 指向较长文档时，必须同时给出明确的 `read when` / `skip when`
+
+如果 `AGENTS.md` 只是点名一个长文档，却不说明什么时候读、什么时候不读，那么路由层本身仍然会浪费上下文。
+
 ### 4. 用结构化渐进式披露替代大段读取
 
 读取协议采用 route-first、按文档类型处理的方式：
@@ -94,6 +102,13 @@ project-governance-skill/
 - controlled probing last
 
 这个 skill 会区分 routing docs、带内部结构的 authoritative docs、大型 registry、recovery shards、低频 sidecars。目的就是减少大段 raw 读取，让仓库读取变成有意图的窄读取。
+
+这里还有一条配套规则：必须同时设计 reading case 和 not reading case。
+
+- 当当前动作进入某份 support doc 的判断面时，就应该读它
+- 当当前轮次还没进入那一层，或者主路由文件已经足够时，就应该跳过它
+
+这种显式的 `read when` / `skip when` 设计，不只是文档风格，而是上下文预算控制机制。
 
 ### 5. 用触发器思想做注意力控制
 

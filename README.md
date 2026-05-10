@@ -85,6 +85,14 @@ The bundled `project-root-AGENTS.template.md` is designed to:
 
 This reduces duplicated sources of truth and avoids paying every round for governance details that are only sometimes needed.
 
+In practice, treat `AGENTS.md` as an index-bearing control surface:
+
+- keep compact durable rules in `AGENTS.md`
+- place detailed runtime procedures in the skill or support-protocol files
+- include explicit `read when` / `skip when` routing when `AGENTS.md` points to a longer document
+
+If `AGENTS.md` only names a long document without telling the agent when to read or skip it, the routing layer still wastes context.
+
 ### 4. Use structured progressive disclosure instead of bulk reads
 
 The reading contract is route-first and class-based:
@@ -94,6 +102,13 @@ The reading contract is route-first and class-based:
 - controlled probing last
 
 The skill distinguishes routing docs, authoritative docs with internal structure, large registries, recovery shards, and low-frequency sidecars. This is meant to reduce large raw reads and make repository reading more deliberate.
+
+The important companion rule is to encode both reading and non-reading cases:
+
+- read a support document when the current action enters that document's decision surface
+- skip it when the round is still outside that surface or the main router is already sufficient
+
+That explicit `read when` / `skip when` design is a context-budget control mechanism, not just a documentation style preference.
 
 ### 5. Use trigger-style reminders at the right nodes
 
