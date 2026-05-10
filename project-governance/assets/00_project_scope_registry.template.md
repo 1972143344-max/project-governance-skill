@@ -5,6 +5,17 @@ Status: active
 Scope: repository-level routing
 Doc root: docs/governance/
 
+## Maintenance Threshold
+
+Document role: `routing-doc`
+Advisory threshold: `140 lines`
+Split threshold: `200 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this document should be split or given a second-level routing surface before future growth continues.
+Even below the split threshold, surface the same recommendation if routing quality has clearly degraded.
+Do not silently restructure this document during unrelated work.
+
 Purpose: repository-level routing only. This document does not define project spec, design, decisions, or project-specific overrides.
 
 ## Routing Rules

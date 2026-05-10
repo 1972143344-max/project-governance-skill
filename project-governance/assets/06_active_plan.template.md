@@ -8,6 +8,17 @@ Project scope slug: <stable-slug>
 Document role: working
 Layer: execution
 
+## Maintenance Threshold
+
+Document role: `active-plan`
+Advisory threshold: `80 lines`
+Split threshold: `120 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this active plan is becoming a second spec and should be shortened or split so the active frontier remains easy to read.
+Even below the split threshold, surface the same recommendation if historical explanation is crowding out the current frontier.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This file records the current execution frontier. It is not a long-term project ledger and it does not replace the spec or decision log.

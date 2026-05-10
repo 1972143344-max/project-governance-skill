@@ -6,6 +6,17 @@ Scope: <project or subsystem scope>
 Doc root: docs/<project-scope>/context/
 Project scope slug: <stable-slug>
 
+## Maintenance Threshold
+
+Document role: `recovery-policy`
+Advisory threshold: `180 lines`
+Split threshold: `260 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this recovery-policy document should be split and rerouted rather than continue growing as one file.
+Even below the split threshold, surface the same recommendation if recovery-writing rules and recovery-reading rules have become hard to navigate together.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This document defines how the project-scoped context layer should be used:

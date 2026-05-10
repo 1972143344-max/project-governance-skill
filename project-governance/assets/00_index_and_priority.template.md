@@ -9,6 +9,17 @@ Document role: routing-only
 Index grade: `0`
 Index family: `authority routing`
 
+## Maintenance Threshold
+
+Document role: `routing-doc`
+Advisory threshold: `240 lines`
+Split threshold: `320 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this document should be split or given a second-level routing surface before future growth continues.
+Even below the split threshold, surface the same recommendation if routing quality has clearly degraded.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This document is the governance entrypoint for the project. It defines:
@@ -50,9 +61,11 @@ Default reading order:
 6. If the round uses `probe-only`, creates or relies on `tasks/artifacts/`, or the project is in `probe-heavy` mode, read `08_probe_harness_contract.md` before running probes or interpreting artifacts.
 7. Read the current active plan only when the frontier, blocker boundary, or next package may matter.
 8. If an enabled `04_lessons_learned.md` exists and reusable guardrails or prior repeated failures may matter, read it before promoting a new lesson.
-9. If task-template tiering is enabled and a new task record is needed, read `tasks/templates/00_task_template_index.md`.
-10. Read task routing and recovery routing only after the active authoritative rule or plan is known.
-11. Expand into only the minimum detailed records needed for the active question.
+9. If the round needs the full repository reading protocol, read `10_runtime_reading_protocol.md`.
+10. If task-template tiering is enabled and a new task record is needed, read `tasks/templates/00_task_template_index.md`.
+11. If the round enters governance sync, closure, or update/notify adjudication, read `11_governance_execution_contract.md`.
+12. Read task routing and recovery routing only after the active authoritative rule or plan is known.
+13. Expand into only the minimum detailed records needed for the active question.
 
 Progressive disclosure rules:
 
@@ -139,7 +152,7 @@ Enable these only when the project mode or user direction justifies them:
 - `docs/<project-scope>/governance/07_governance_behavior_matrix.md`
 - `docs/<project-scope>/governance/08_probe_harness_contract.md`
 - `docs/<project-scope>/governance/09_governance_system_spec.md`
-- `docs/<project-scope>/governance/10_*` or later proposal docs
+- `docs/<project-scope>/governance/12_*` or later proposal docs
 - `docs/<project-scope>/governance/lessons/`
 - `docs/<project-scope>/tasks/templates/00_task_template_index.md`
 
@@ -160,6 +173,15 @@ Enable these only when the project mode or user direction justifies them:
 - `tasks/templates/00_task_template_index.md`
   - enable when the project uses lane-tiered task templates
   - read before creating a new task record when multiple templates are plausible
+
+## Support Protocol Surfaces
+
+Treat these as stable support-entrypoint surfaces when the runtime router or project-root `AGENTS.md` routes task rounds into them:
+
+- `docs/<project-scope>/governance/10_runtime_reading_protocol.md`
+- `docs/<project-scope>/governance/11_governance_execution_contract.md`
+
+Read them according to the routing contract instead of treating them as optional governance proposals.
 
 ## Conflict Resolution Order
 

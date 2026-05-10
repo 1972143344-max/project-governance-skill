@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Governance"
-  short_description: "Initialize, re-enter, and maintain project-scoped governance: authority docs, recovery/context routing, probe-heavy boundaries, lane selection, and structural upkeep."
-  default_prompt: "Use $project-governance to initialize, re-enter, or maintain project-scoped governance before non-trivial changes, especially when authority routing, recovery/context state, probe-heavy evidence, or structural document maintenance may matter."
+  short_description: "Runtime-first governance, routing, sync, and structural upkeep."
+  default_prompt: "Use $project-governance to route governance-sensitive work, read the right authority surfaces first, and handle runtime sync or structural maintenance without drifting into low-frequency initialization material unless this action truly needs it."

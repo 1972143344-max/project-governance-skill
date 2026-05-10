@@ -8,6 +8,17 @@ Project scope slug: <stable-slug>
 Document role: working
 Layer: execution
 
+## Maintenance Threshold
+
+Document role: `append-only-audit`
+Advisory threshold: `260 lines`
+Split threshold: `400 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this append-only document should be checkpointed, archived by phase, or split into routed shards before future rounds continue appending to it.
+Even below the split threshold, surface the same recommendation if recent-history lookup or active-use routing has clearly become noisy.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This file is the append-only audit summary for meaningful rounds. It records:

@@ -1,155 +1,95 @@
 # Usage Guide
 
-This guide explains how to use the `project-governance` skill in real projects.
+This guide explains how to use the packaged `project-governance` skill after installation.
 
-## When To Use It
+## Runtime Order
+
+Treat the packaged skill as a routed workflow, not as one giant document.
+
+1. Read `project-governance/SKILL.md`.
+2. Let it decide whether the current action needs:
+   - `10_runtime_reading_protocol.md`
+   - `11_governance_execution_contract.md`
+   - one low-frequency sidecar such as `initialization-and-adoption.md`
+3. Read only the routed support file(s), not the whole bundle by default.
+
+The packaged skill is designed so the main `SKILL.md` stays focused on runtime routing, while lower-frequency details live in sidecars.
+
+## Typical Use Cases
 
 Use the skill when:
 
 - a repository is large or long-running
 - multiple document versions already exist
-- specs and design notes conflict
-- the user wants plan-first handling
-- the user wants auditability
-- the user wants reusable project-local governance
+- specs, decisions, and design notes may conflict
+- the user wants a documentation-driven workflow
+- structural document changes could alter what future agents read first
 
-## Default Model
+Skip it when the task is a small change with no governance-sensitive surface.
 
-The skill defaults to project-scoped governance:
+## Default Governance Model
+
+Default to project-scoped governance:
 
 - `docs/<project-scope>/governance/`
+- `docs/<project-scope>/context/`
+- `docs/<project-scope>/tasks/`
 
-Do not default to `docs/governance/` unless the task is explicitly repository-wide.
+Use `docs/governance/` only when the user explicitly wants one repository-wide governance layer across multiple projects or experiments.
 
-If a repository contains multiple long-running projects or experiments, the skill may also propose:
+Stable read-first entrypoints are:
 
-- `docs/governance/00_project_scope_registry.md`
+- `00_index_and_priority.md`
+- `00_context_index.md`
+- `00_task_knowledge_base.md`
+- `10_runtime_reading_protocol.md`
+- `11_governance_execution_contract.md`
 
-That registry is routing-only. It should help identify the active project scope before reading project-specific governance docs. It must not override project spec, design, or decisions.
+If one of those becomes too large, keep the filename as the stable entrypoint and split below it with second-level routing.
 
-## Step 1. Pick A Project Scope Slug
+## Initialization And Adoption
 
-Choose a stable slug before initializing governance docs.
+Read `initialization-and-adoption.md` only when:
 
-Recommended format:
+- governance docs do not exist yet
+- an existing project must be adopted into the governance system
+- the current round is changing the governance foundation
 
-- lowercase letters
-- digits
-- hyphens
+Initialization still requires ask-first behavior. Do not silently create governance docs or overwrite an existing project-root `AGENTS.md`.
 
-Examples:
+## Progressive Disclosure
 
-- `experiment3`
-- `exp3-bua87-formal`
-- `browser-runtime-migration`
+Use the routed reading contract from `10_runtime_reading_protocol.md`:
 
-## Step 2. Decide Whether To Initialize Project-Root AGENTS
+- external routing first
+- internal routing second
+- controlled probing last
 
-The skill can initialize both:
+Do not default to long `Get-Content -Raw` reads on large governance or task documents when route-first narrowing is still possible.
 
-- project-root `AGENTS.md`
-- governance docs under `docs/<project-scope>/governance/`
+Once the governing authority set is identified, stop relying on summary-only reading for that item.
 
-This is the recommended choice for new projects that want the full workflow.
-If a project-root `AGENTS.md` already exists, the skill should not overwrite it silently. It should read the current file first and propose keep, merge, or explicit replace options.
+## AGENTS Template Design
 
-## Step 3. Initialize Governance Docs
+The packaged `project-root-AGENTS.template.md` is intentionally short.
 
-The normal order is:
+It should:
 
-1. `00_index_and_priority.md`
-2. `01_constraints_and_spec.md`
-3. `02_design.md`
-4. `03_behavior_audit.md`
-5. `04_lessons_learned.md`
-6. `05_decision_log.md`
-7. `06_active_plan.md` if needed
+- carry only durable project-local collaboration rules
+- point to the full reading or execution protocol when the current action actually needs it
+- avoid duplicating the full governance workflow in always-loaded text
 
-## Step 4. Use The Governance Docs During Work
+## Structural Maintenance
 
-### Before major or conflicting changes
+When routing, index, archive, supersede, or promotion work changes future reading behavior:
 
-- explain the conflict
-- ask whether to create/update a plan
-- ask whether to create/update a decision record
-- only then implement
-
-### After meaningful changes
-
-- ask whether to update governance docs
-- update audit first if approval is given
-- then update spec/design/lessons/decision docs as needed
-
-### After major changes
-
-- do a review pass
-- use a reviewer agent if available
-- otherwise review manually
-
-### If uncertainty remains
-
-- explicitly tell the user
-- name the assumptions or unclear points
-- explain the impact on the result or next decision
-
-## Step 5. Use Progressive Disclosure For Large Document Sets
-
-If the project has many documents or very large files, do not default to reading everything in full.
-
-Prefer this sequence:
-
-1. read the scope/index or routing doc first
-2. read file-level summary headers next
-3. read only the sections needed for the current task
-4. expand to full documents only when the summary is insufficient
-
-Useful companion templates:
-
-- `assets/file-summary-header.template.md`
-- `assets/summary-index.template.md`
-
-Recommended uses:
-
-- add a short summary header near the top of large files
-- create a summary index when many files are plausible reading candidates
-- split files by semantic boundary when they grow too large
-- keep current spec and active decisions authoritative in the real document, not only in the summary
-
-Avoid using summary-only reading for:
-
-- current constraints/spec
-- active decisions
-- active design rules
-- active plans
-
-## Adoption For Existing Projects
-
-If a project already contains many docs:
-
-1. ask whether to adopt it into the governance system
-2. classify existing docs as:
-   - authoritative
-   - working
-   - historical/reference
-3. record the conflict resolution order in `00_index_and_priority.md`
-4. do not mass-clean old docs unless the user asks
+- notify the user explicitly
+- route into `11_governance_execution_contract.md`
+- keep routing surfaces and their downstream targets synchronized in the same round
 
 ## Example Prompts
 
-- `Use $project-governance to initialize project-scoped governance for slug exp3-bua87-formal.`
-- `Use $project-governance to create project-root AGENTS.md and governance docs for slug browser-runtime-migration.`
+- `Use $project-governance to initialize project-scoped governance for slug browser-runtime-migration.`
 - `Use $project-governance to adopt this repository's existing docs into the governance system.`
-- `Use $project-governance to update the audit and decision log after today's runtime changes.`
-
-## Common Mistakes To Avoid
-
-- creating governance docs silently
-- using unstable natural-language titles as scope directories
-- treating detailed old docs as authoritative without an index
-- updating governance docs without user approval
-- skipping review after major changes
-- hiding uncertainty in a confident-sounding final reply
-- turning a repository-level routing registry into a project spec
-- letting summary headers drift away from the actual document contents
-- splitting files by size alone when a cleaner semantic split is available
-- treating summary-only reading as a safe replacement for current authoritative rules
+- `Use $project-governance to route this governance-sensitive round and load only the required protocol files.`
+- `Use $project-governance to update the task record, audit, and active plan after today's implementation round.`

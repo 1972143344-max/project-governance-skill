@@ -7,6 +7,17 @@ Document role: routing-only
 Index grade: `1 | 2`
 Index family: `authority routing | execution routing | recovery routing | learning routing | mixed`
 
+## Maintenance Threshold
+
+Document role: `routing-doc`
+Advisory threshold: `140 lines`
+Split threshold: `200 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this document should be split or given a second-level routing surface before future growth continues.
+Even below the split threshold, surface the same recommendation if routing quality has clearly degraded.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This index is a routing surface across multiple related files. It helps the reader choose the next file to open without restating the full contents of those files.

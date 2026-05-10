@@ -1,3 +1,14 @@
+## Maintenance Threshold
+
+Document role: `context-shard`
+Advisory threshold: `120 lines`
+Split threshold: `180 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this shard should be split or replaced with narrower routed shards before future growth continues.
+Even below the split threshold, surface the same recommendation if one shard now mixes multiple unresolved fronts that future agents usually need separately.
+Do not silently restructure this document during unrelated work.
+
 ## Summary Header
 
 - Purpose:

@@ -4,6 +4,18 @@ Use this reference when the `project-governance` skill must initialize or mainta
 
 This file is a workflow and maintenance reference for the skill. It defines how the skill should operate around repository-local governance docs, `AGENTS.md`, and long-running execution history.
 
+## Runtime Position
+
+Treat this file as a lifecycle reference, not as the default runtime first-read surface.
+
+For active runtime work:
+
+- use `SKILL.md` as the router
+- read `10_runtime_reading_protocol.md` for reading/routing decisions
+- read `11_governance_execution_contract.md` for sync, review, quality, and closure decisions
+
+Open this file when you need the broader lifecycle model, adoption logic, lane meaning, or maintenance rationale behind the runtime protocol.
+
 ## Goals
 
 - keep repository-local docs authoritative for project truth

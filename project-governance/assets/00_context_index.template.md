@@ -8,6 +8,17 @@ Document role: routing-only
 Index grade: `1`
 Index family: `recovery routing`
 
+## Maintenance Threshold
+
+Document role: `routing-doc`
+Advisory threshold: `140 lines`
+Split threshold: `200 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this document should be split or given a second-level routing surface before future growth continues.
+Even below the split threshold, surface the same recommendation if routing quality has clearly degraded.
+Do not silently restructure this document during unrelated work.
+
 Purpose: lightweight routing across project-scoped context shards. This index helps recover effective execution state after compression, pause, or handoff. It does not replace authoritative governance documents.
 
 This file is normally a `Grade 1` recovery index used after the scope entrypoint and active authority path are already known.

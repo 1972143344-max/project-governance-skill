@@ -9,42 +9,6 @@ This file defines project-local collaboration and governance rules for this repo
 - Recovery state lives under `docs/<project-scope>/context/`.
 - Task records and delivery history live under `docs/<project-scope>/tasks/`.
 
-## Governance Layers
-
-- `authority`: current project truth and accepted decisions
-- `execution`: current frontier, completed rounds, and searchable task history
-- `learning`: durable lessons that should influence future agent behavior
-- `recovery`: resumable working state after compression, pause, or handoff
-- `probe`: evidence-only work that must stay bounded and reviewable
-
-## Default Governance Skeleton
-
-Required for ordinary project-scoped governance:
-
-- `docs/<project-scope>/governance/00_index_and_priority.md`
-- `docs/<project-scope>/governance/01_constraints_and_spec.md`
-- `docs/<project-scope>/governance/02_design.md`
-- `docs/<project-scope>/governance/03_behavior_audit.md`
-- `docs/<project-scope>/governance/05_decision_log.md`
-- `docs/<project-scope>/tasks/00_task_knowledge_base.md`
-
-Optional by mode or user direction:
-
-- `docs/<project-scope>/governance/04_lessons_learned.md`
-- `docs/<project-scope>/governance/06_active_plan.md`
-- `docs/<project-scope>/governance/07_governance_behavior_matrix.md`
-- `docs/<project-scope>/governance/08_probe_harness_contract.md`
-- `docs/<project-scope>/governance/09_governance_system_spec.md`
-- `docs/<project-scope>/governance/lessons/`
-- `docs/<project-scope>/tasks/templates/00_task_template_index.md`
-- `docs/<project-scope>/tasks/artifacts/`
-
-Required recovery skeleton:
-
-- `docs/<project-scope>/context/00_context_index.md`
-- `docs/<project-scope>/context/01_context_usage_and_policy.md`
-- `docs/<project-scope>/context/shards/`
-
 ## Reading Order
 
 Before non-trivial work:
@@ -52,82 +16,57 @@ Before non-trivial work:
 1. Determine the active project scope.
 2. Read `docs/<project-scope>/governance/00_index_and_priority.md`.
 3. Read the current authoritative spec.
-4. If `docs/<project-scope>/governance/07_governance_behavior_matrix.md` is active and the round is non-trivial, read it before final lane classification.
-5. If the round uses `probe-only`, touches `tasks/artifacts/`, or the project is running in `probe-heavy` mode, read `docs/<project-scope>/governance/08_probe_harness_contract.md`.
-6. If task-template tiering is active and a new task record is needed, read `docs/<project-scope>/tasks/templates/00_task_template_index.md`.
+4. Read the authoritative design doc when structure or behavior matters.
+5. If `docs/<project-scope>/governance/07_governance_behavior_matrix.md` is active and the round is non-trivial, read it before final lane classification.
+6. If the round uses `probe-only`, touches `tasks/artifacts/`, or the project is running in `probe-heavy` mode, read `docs/<project-scope>/governance/08_probe_harness_contract.md`.
 7. Read relevant decisions or active plan only if the task may change direction or frontier.
 8. Read task routing and recovery routing only after the relevant authority surface is known.
 9. Expand into only the minimum detailed task records or context shards needed.
 
-## Enabled Optional Surface Routing
-
-- Read `docs/<project-scope>/governance/04_lessons_learned.md` when the learning layer is enabled and you need to check or promote a reusable lesson.
-- Read `docs/<project-scope>/governance/07_governance_behavior_matrix.md` when it is active and the round needs explicit lane-control rules.
-- Read `docs/<project-scope>/governance/08_probe_harness_contract.md` whenever the round uses `probe-only`, creates or relies on `tasks/artifacts/`, or the project is running in `probe-heavy` mode.
-- Read `docs/<project-scope>/governance/09_governance_system_spec.md` only for governance-maintenance or governance-redesign work, and only after the authoritative core set is already known.
-- Read `docs/<project-scope>/tasks/templates/00_task_template_index.md` when task-template tiering is active and more than one task-record template could fit the round.
+Stable entrypoint names should not be changed lightly.
+If a referenced entrypoint grows too large, keep that entrypoint as the shallow read-first surface and split below it with second-level routing.
 
 ## Progressive Disclosure
 
-Use progressive disclosure by default when document relevance is uncertain.
+Use the full repository reading protocol instead of relying on summary bullets in this file when the current round depends on document-reading quality.
 
-- route first and expand only as needed
-- prefer indexes, routing docs, file paths, filenames, and authority markers before full-document reading
-- if summary headers or summary indexes exist, read them first
-- if summaries do not exist, fall back to lightweight triage through title or heading skim, targeted search, and partial section reads before reading the whole file
-- once an authoritative current rule, active plan, or active decision is identified as relevant, do not rely on summary-only reading for that item
+Read `docs/<project-scope>/governance/10_runtime_reading_protocol.md` before acting when the round involves:
 
-## Lane Classification
+- non-trivial repo work
+- authority, task, or context routing
+- deciding between route-first, probing, section expansion, or full-read
+- review, planning, implementation, or governance maintenance that depends on document-reading quality
 
-Classify the round before editing anything.
+You may skip that full protocol for:
 
-Supported governance lanes:
-
-- `docs-only`
-- `metadata-sync`
-- `review-only`
-- `probe-only`
-- `implementation`
-- `substantial-change`
-- `authority-change`
-- `lesson-promotion`
-- `index-split`
-- `archive-or-supersede`
-
-Use the narrowest lane that truthfully matches the intended output. Upgrade to a stricter lane if the round changes accepted truth, architecture, routing structure, or execution boundary.
-
-If `docs/<project-scope>/governance/07_governance_behavior_matrix.md` is active, treat it as the authoritative lane-control surface for:
-
-- required read baseline
-- allowed write surfaces
-- required sync obligations
-- prohibited actions
-- review and authority-update requirements
+- pure chat
+- light brainstorming with no repo-document lookup
+- casual explanation that does not depend on repository routing or authority adjudication
 
 ## Task Record Policy
 
-Every meaningful completed round should produce or update a task record. Use the narrowest template that fits the round:
+Every meaningful completed round should produce or update a task record.
 
-- `T0`: minor or metadata-only
-- `T1`: probe-only, review-only, or docs-only
-- `T2`: standard implementation
-- `T3`: substantial or authority-changing work
+- use the narrowest repo-local task-record template that truthfully fits the round
+- if task-template tiering is active and a new task record is needed, read `docs/<project-scope>/tasks/templates/00_task_template_index.md`
 
-Do not fill fields that do not apply just to satisfy a large generic template.
+Read `docs/<project-scope>/governance/11_governance_execution_contract.md` before acting when the round involves:
 
-When task-template tiering is active, use `docs/<project-scope>/tasks/templates/00_task_template_index.md` as the selector surface for `T0` to `T3` rather than relying on this summary alone.
+- task-record creation or update
+- behavior-audit, active-plan, or context-index sync
+- governance sync, routing changes, archive/supersede, or authority-affecting maintenance
+- delivery completion, quality-gate judgment, review adjudication, or closure docs
 
-Default edge-case routing:
+You may skip that contract for:
 
-- `lesson-promotion`: use `T1` when the lesson is guidance-only; upgrade to `T3` if the promotion changes mandatory policy or accepted truth.
-- `index-split`: use `T1` for routing-only reorganization; upgrade to `T3` if the split also changes authority status or active truth.
-- `archive-or-supersede`: use `T1` when retiring or replacing routing, recovery, working, or historical surfaces without truth change; upgrade to `T3` if the active authoritative source changes.
+- pure chat
+- exploratory reading with no governance sync or closure judgment
+- implementation work that has not yet entered sync, review, or completion handling
 
 ## Governance Sync Rules
 
-- If specs or design decisions change, update the matching governance docs in the same workstream.
-- If context shards are superseded or archived, update the context index in the same round.
-- Prefer append-only audit updates for meaningful implementation and environment actions.
+- Do not leave changed authority, routing, execution-state, or closure-state expectations implicit.
+- Use `docs/<project-scope>/governance/11_governance_execution_contract.md` for the detailed same-round sync and closure rules when this section is active for the current round.
 
 ## Authority Boundary
 
@@ -144,22 +83,13 @@ Default edge-case routing:
 
 Do not silently change future reading behavior in meaningful ways.
 
-Tell the user explicitly before or while performing:
-
-- archive or supersede actions
-- index splits or routing reorganizations
-- lesson promotions that change future workflow
-- authority changes
-
-Only clearly mechanical small updates may be done without separate notice.
+- If a high-frequency, routing, or authority document has grown long enough to degrade reading quality, explicitly tell the user that maintenance, splitting, or second-level indexing is needed instead of letting it grow without control.
+- Read `docs/<project-scope>/governance/11_governance_execution_contract.md` before archive/supersede, routing reorganization, authority-affecting maintenance, or closure-state sync.
+- Clearly mechanical updates may be handled without separate notice only when the semantic change was already explained.
 
 ## Delivery Quality Gate
 
-Before claiming delivery complete:
-
-- locate and run the repo-local quality gate required for the touched surface
-- prefer an explicit quality-gate source already present in the repository, such as governance docs, `AGENTS.md`, an existing workflow/task contract, CI configuration, or other executable build/test entrypoints
-- if the quality gate is inferred from repository execution surfaces rather than explicitly documented, say so clearly instead of presenting it as a formal repository rule
+Use `docs/<project-scope>/governance/11_governance_execution_contract.md` for quality-gate, review, closure, and completed-state sync rules when the current round enters completion or closure adjudication.
 
 ## Review Standard
 

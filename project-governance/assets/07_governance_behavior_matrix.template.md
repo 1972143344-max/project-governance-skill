@@ -8,6 +8,17 @@ Project scope slug: <stable-slug>
 Document role: working
 Layer: mixed
 
+## Maintenance Threshold
+
+Document role: `support-protocol`
+Advisory threshold: `220 lines`
+Split threshold: `320 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this protocol document should be split into routed companion docs rather than continue growing as one file.
+Even below the split threshold, surface the same recommendation if readers usually need only one semantic subset at a time.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This document operationalizes governance execution lanes for the project. Use it to decide:

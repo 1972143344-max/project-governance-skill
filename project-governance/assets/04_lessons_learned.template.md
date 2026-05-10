@@ -8,6 +8,17 @@ Project scope slug: <stable-slug>
 Document role: working
 Layer: learning
 
+## Maintenance Threshold
+
+Document role: `learning-index`
+Advisory threshold: `180 lines`
+Split threshold: `260 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this lesson index should be split or rerouted before future growth continues.
+Even below the split threshold, surface the same recommendation if active lessons and historical lessons are becoming hard to distinguish quickly.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This file is the lesson index for reusable governance or execution guardrails that should influence future agent behavior beyond one task.

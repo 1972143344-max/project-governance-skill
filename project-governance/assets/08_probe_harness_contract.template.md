@@ -8,6 +8,17 @@ Project scope slug: <stable-slug>
 Document role: working
 Layer: probe
 
+## Maintenance Threshold
+
+Document role: `support-protocol`
+Advisory threshold: `220 lines`
+Split threshold: `320 lines`
+
+If this document exceeds the advisory threshold, explicitly tell the user that maintenance review is recommended.
+If this document exceeds the split threshold, explicitly tell the user that this protocol document should be split into routed companion docs rather than continue growing as one file.
+Even below the split threshold, surface the same recommendation if probe scope, artifact rules, and runner rules have become hard to navigate together.
+Do not silently restructure this document during unrelated work.
+
 ## Purpose
 
 This document defines the project contract for probe-only and evidence-gathering rounds. Use it when runtime, environment, CLI, gateway, artifact, or protocol evidence must be collected without silently widening into ordinary implementation.
