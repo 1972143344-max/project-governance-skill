@@ -95,6 +95,10 @@ They do not replace underlying authority documents.
 
 Do not treat routing text as authoritative project truth once the relevant authority or active execution surface has been identified.
 
+### Role-Change Sync Rule
+
+If a governance document changes role, update its header role/status, purpose text, index classification, and routing notes in the same round.
+
 ## Governance Mode
 
 Active mode: `core | extended | probe-heavy`
