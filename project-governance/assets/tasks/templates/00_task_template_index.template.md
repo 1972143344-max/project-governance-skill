@@ -27,6 +27,10 @@ Use this index to choose the narrowest task-record template that truthfully matc
 
 This file is normally a `Grade 1` execution-routing surface. It helps route readers from lane classification into the correct task-record template family. It does not replace the lane-control surface itself.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Template Selection
 
 | Template | Use for | Avoid when |

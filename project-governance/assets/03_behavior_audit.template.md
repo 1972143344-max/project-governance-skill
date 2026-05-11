@@ -31,6 +31,10 @@ This file is the append-only audit summary for meaningful rounds. It records:
 
 This file is not a second spec and not a full task diary. Detailed implementation or evidence belongs in task records and artifacts.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Entry Format
 
 Use one concise entry per meaningful completed round.

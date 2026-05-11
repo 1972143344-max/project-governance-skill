@@ -24,6 +24,10 @@ Do not silently restructure this document during unrelated work.
 - Freshness notes:
 - Related docs:
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Context Unit: `<id>`
 
 - Time range:

@@ -31,6 +31,10 @@ Use this file to:
 
 Do not use this file as a full task diary. One-off observations stay in task records unless they are promoted.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Promotion Rules
 
 Promote a lesson when one of these becomes true:

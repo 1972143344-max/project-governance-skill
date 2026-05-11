@@ -23,6 +23,10 @@ Do not silently restructure this document during unrelated work.
 - Provide a searchable index for completed engineering tasks.
 - Help future contributors avoid repeated mistakes by routing them to relevant historical records first.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Usage Rule
 
 - Before starting a new task, search this file for matching keywords, files, modules, or requirement IDs.

@@ -23,6 +23,10 @@ Purpose: lightweight routing across project-scoped context shards. This index he
 
 This file is normally a `Grade 1` recovery index used after the scope entrypoint and active authority path are already known.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Reading Rule
 
 - Read this index when the task depends on recent execution history, handoff state, or compressed chat recovery.

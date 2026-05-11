@@ -24,6 +24,10 @@ This index is a routing surface across multiple related files. It helps the read
 
 This template is never a substitute for `00_index_and_priority.md` and must not be used as an alternate Grade 0 entrypoint.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Grade Meaning
 
 - `1`: layer index or active contract surface

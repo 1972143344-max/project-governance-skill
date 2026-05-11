@@ -18,6 +18,10 @@ Do not silently restructure this document during unrelated work.
 
 Purpose: repository-level routing only. This document does not define project spec, design, decisions, or project-specific overrides.
 
+## Role-Change Sync Rule
+
+If this document changes role, update its header, purpose, routing notes, and the governing index in the same round.
+
 ## Routing Rules
 
 - If the user explicitly names a project, experiment, or scope slug, use that scope.
