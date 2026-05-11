@@ -39,6 +39,62 @@ This file applies only to the scope named above unless explicitly marked as repo
 
 This file is normally the project's `Grade 0` entrypoint.
 
+## Index Maintenance Contract
+
+This file is a stable read-first entrypoint.
+
+### Stable Entrypoints
+
+Treat these as stable entrypoint surfaces by default:
+
+- `docs/<project-scope>/governance/00_index_and_priority.md`
+- `docs/<project-scope>/context/00_context_index.md`
+- `docs/<project-scope>/tasks/00_task_knowledge_base.md`
+- `docs/<project-scope>/tasks/templates/00_task_template_index.md` when task-template tiering is active
+
+Do not rename or replace these entrypoints lightly.
+
+### Split Rule
+
+If a stable entrypoint or layer-routing document grows large enough that routing quality degrades, keep the existing file as the shallow read-first surface and split below it with second-level routing.
+
+Prefer splitting by:
+
+- semantic topic
+- layer boundary
+- subsystem
+- active-versus-historical boundary
+
+Do not silently replace an established entrypoint with a different filename when downward splitting is enough.
+
+### When To Add A Layer Index
+
+Add a second-level routing surface only when one of these becomes true:
+
+- one file can no longer route most reads to one clear next hop
+- multiple distinct topics or surfaces are mixed in one routing document
+- routing noise, stale-read risk, or maintenance overhead has become material
+- the file is still serving as an entrypoint, but detailed content now needs to live below it
+
+### Naming Stability
+
+When a previously stable document is split:
+
+- keep the existing filename as the stable entrypoint whenever possible
+- move detailed content into child documents or second-level routing files below it
+- update the existing file so its current routing role is explicit near the top
+- keep upper-layer references pointing to the stable entrypoint unless a true scope change requires otherwise
+
+A stable entrypoint may become more index-like over time even if its filename does not contain `index`. This is acceptable as long as its current role is stated clearly in the document header and body.
+
+### Routing-Only Boundary
+
+Indexes and routing entrypoints help the reader choose what to open next.
+
+They do not replace underlying authority documents.
+
+Do not treat routing text as authoritative project truth once the relevant authority or active execution surface has been identified.
+
 ## Governance Mode
 
 Active mode: `core | extended | probe-heavy`
